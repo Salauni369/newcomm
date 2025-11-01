@@ -1,168 +1,168 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:newcomm/views/otp_view.dart';
-
-class Login extends StatefulWidget {
-  const Login({super.key});
-
-  @override
-  State<Login> createState() => _LoginState();
-}
-
-class _LoginState extends State<Login> {
-  final TextEditingController phoneController = TextEditingController();
-  bool isLoading = false;
-  bool isPhoneValid = false;
-
-  final RegExp _indiaPhoneRegex = RegExp(r'^[6-9]\d{9}$');
-
-  @override
-  void initState() {
-    super.initState();
-    phoneController.addListener(_validatePhone);
-  }
-
-  void _validatePhone() {
-    final phone = phoneController.text.trim();
-    final valid = _indiaPhoneRegex.hasMatch(phone);
-    if (valid != isPhoneValid) {
-      setState(() => isPhoneValid = valid);
-    }
-  }
-
-  @override
-  void dispose() {
-    phoneController.removeListener(_validatePhone);
-    phoneController.dispose();
-    super.dispose();
-  }
-
-  Future<void> sendOtp() async {
-    if (!isPhoneValid) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Enter a valid 10-digit mobile number.")),
-      );
-      return;
-    }
-
-    setState(() => isLoading = true);
-    await Future.delayed(const Duration(seconds: 2));
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("OTP Sent (Mock) to ${phoneController.text.trim()}")),
-    );
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const OtpFormlogin()),
-    );
-
-    setState(() => isLoading = false);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/images/login.png'),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Stack(
-          children: [
-            Container(
-              padding: const EdgeInsets.only(left: 35, top: 130),
-              child: const Text(
-                "Welcome\n Back ",
-                style: TextStyle(color: Colors.white, fontSize: 33),
-              ),
-            ),
-            SingleChildScrollView(
-              child: Container(
-                padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.5,
-                  right: 35,
-                  left: 35,
-                ),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 25),
-                    TextField(
-                      controller: phoneController,
-                      keyboardType: TextInputType.phone,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                        LengthLimitingTextInputFormatter(10),
-                      ],
-                      decoration: InputDecoration(
-                        fillColor: Colors.grey.shade100,
-                        filled: true,
-                        hintText: "Mobile Number",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: (isPhoneValid && !isLoading) ? sendOtp : null,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: (isPhoneValid && !isLoading)
-                              ? const Color(0xff4c505b)
-                              : Colors.grey,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        child: isLoading
-                            ? const CircularProgressIndicator(
-                          color: Colors.white,
-                          strokeWidth: 2.5,
-                        )
-                            : const Text(
-                          "Send Otp",
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 40),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "Don't have an account? ",
-                          style: TextStyle(
-                            color: Color(0xff4c505b),
-                            fontSize: 16,
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/signup');
-                          },
-                          child: const Text(
-                            "Sign Up",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xff4c505b),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+// import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
+// import 'package:newcomm/views/otp_view.dart';
+//
+// class Login extends StatefulWidget {
+//   const Login({super.key});
+//
+//   @override
+//   State<Login> createState() => _LoginState();
+// }
+//
+// class _LoginState extends State<Login> {
+//   final TextEditingController phoneController = TextEditingController();
+//   bool isLoading = false;
+//   bool isPhoneValid = false;
+//
+//   final RegExp _indiaPhoneRegex = RegExp(r'^[6-9]\d{9}$');
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     phoneController.addListener(_validatePhone);
+//   }
+//
+//   void _validatePhone() {
+//     final phone = phoneController.text.trim();
+//     final valid = _indiaPhoneRegex.hasMatch(phone);
+//     if (valid != isPhoneValid) {
+//       setState(() => isPhoneValid = valid);
+//     }
+//   }
+//
+//   @override
+//   void dispose() {
+//     phoneController.removeListener(_validatePhone);
+//     phoneController.dispose();
+//     super.dispose();
+//   }
+//
+//   Future<void> sendOtp() async {
+//     if (!isPhoneValid) {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         const SnackBar(content: Text("Enter a valid 10-digit mobile number.")),
+//       );
+//       return;
+//     }
+//
+//     setState(() => isLoading = true);
+//     await Future.delayed(const Duration(seconds: 2));
+//
+//     ScaffoldMessenger.of(context).showSnackBar(
+//       SnackBar(content: Text("OTP Sent (Mock) to ${phoneController.text.trim()}")),
+//     );
+//     Navigator.push(
+//       context,
+//       MaterialPageRoute(builder: (context) => const OtpFormlogin()),
+//     );
+//
+//     setState(() => isLoading = false);
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       decoration: const BoxDecoration(
+//         image: DecorationImage(
+//           image: AssetImage('assets/images/login.png'),
+//           fit: BoxFit.cover,
+//         ),
+//       ),
+//       child: Scaffold(
+//         backgroundColor: Colors.transparent,
+//         body: Stack(
+//           children: [
+//             Container(
+//               padding: const EdgeInsets.only(left: 35, top: 130),
+//               child: const Text(
+//                 "Welcome\n Back ",
+//                 style: TextStyle(color: Colors.white, fontSize: 33),
+//               ),
+//             ),
+//             SingleChildScrollView(
+//               child: Container(
+//                 padding: EdgeInsets.only(
+//                   top: MediaQuery.of(context).size.height * 0.5,
+//                   right: 35,
+//                   left: 35,
+//                 ),
+//                 child: Column(
+//                   children: [
+//                     const SizedBox(height: 25),
+//                     TextField(
+//                       controller: phoneController,
+//                       keyboardType: TextInputType.phone,
+//                       inputFormatters: [
+//                         FilteringTextInputFormatter.digitsOnly,
+//                         LengthLimitingTextInputFormatter(10),
+//                       ],
+//                       decoration: InputDecoration(
+//                         fillColor: Colors.grey.shade100,
+//                         filled: true,
+//                         hintText: "Mobile Number",
+//                         border: OutlineInputBorder(
+//                           borderRadius: BorderRadius.circular(10),
+//                         ),
+//                       ),
+//                     ),
+//                     const SizedBox(height: 20),
+//                     SizedBox(
+//                       width: double.infinity,
+//                       height: 50,
+//                       child: ElevatedButton(
+//                         onPressed: (isPhoneValid && !isLoading) ? sendOtp : null,
+//                         style: ElevatedButton.styleFrom(
+//                           backgroundColor: (isPhoneValid && !isLoading)
+//                               ? const Color(0xff4c505b)
+//                               : Colors.grey,
+//                           shape: RoundedRectangleBorder(
+//                             borderRadius: BorderRadius.circular(10),
+//                           ),
+//                         ),
+//                         child: isLoading
+//                             ? const CircularProgressIndicator(
+//                           color: Colors.white,
+//                           strokeWidth: 2.5,
+//                         )
+//                             : const Text(
+//                           "Send Otp",
+//                           style: TextStyle(fontSize: 20, color: Colors.white),
+//                         ),
+//                       ),
+//                     ),
+//                     const SizedBox(height: 40),
+//                     Row(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: [
+//                         const Text(
+//                           "Don't have an account? ",
+//                           style: TextStyle(
+//                             color: Color(0xff4c505b),
+//                             fontSize: 16,
+//                           ),
+//                         ),
+//                         TextButton(
+//                           onPressed: () {
+//                             Navigator.pushNamed(context, '/signup');
+//                           },
+//                           child: const Text(
+//                             "Sign Up",
+//                             style: TextStyle(
+//                               fontSize: 16,
+//                               fontWeight: FontWeight.bold,
+//                               color: Color(0xff4c505b),
+//                             ),
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

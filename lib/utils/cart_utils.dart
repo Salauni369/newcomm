@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:newcomm/views/home.dart';
 import '../models/cart.dart';
 import '../views/buy_now.dart';
 
-
 List<CartItem> cartItems = [];
-
 
 void addToCart(BuildContext context, CartItem product) {
   cartItems.add(product);
-
 
   int total = cartItems.fold(0, (sum, item) => sum + item.price);
 
   showModalBottomSheet(
     context: context,
     backgroundColor: Colors.white,
-    isScrollControlled: false,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
     ),
@@ -46,10 +41,10 @@ void addToCart(BuildContext context, CartItem product) {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      Text('₹${item.price}', style: const TextStyle(fontWeight: FontWeight.bold)),
+                      Text('₹${item.price}',
+                          style: const TextStyle(fontWeight: FontWeight.bold)),
                     ],
                   );
-
                 },
               ),
             ),
@@ -67,21 +62,19 @@ void addToCart(BuildContext context, CartItem product) {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () {
-                      Navigator.pop(context); // close sheet
-                      Navigator.pushNamed(context, 'cart'); // open CartPage
+                      Navigator.pop(context);
+                      Navigator.pushNamed(context, 'cart');
                     },
                     child: const Text('View Cart'),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);
-
-                      final last = cartItems.isNotEmpty ? cartItems.last : null;
-                      if (last != null) {
+                      if (cartItems.isNotEmpty) {
+                        final last = cartItems.last;
                         Navigator.push(
                           context,
                           MaterialPageRoute(

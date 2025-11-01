@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+
+import 'home.dart';
 
 class OtpForm extends StatefulWidget {
   const OtpForm({super.key});
@@ -26,22 +29,17 @@ class _OtpFormState extends State<OtpForm> {
 
     setState(() => isLoading = true);
 
-    // Simulate OTP verification delay
     await Future.delayed(Duration(seconds: 2));
-
-    // Mock success message
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text("OTP Verified (Mock)")),
     );
 
-    // Navigate to home or next screen
-    Navigator.pushReplacementNamed(context, '/home');
+    Get.to(HomePage());
 
     setState(() => isLoading = false);
   }
 
   void resendOtp() {
-    // Mock resend
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text("OTP Resent (Mock)")),
     );
@@ -108,7 +106,7 @@ class _OtpFormState extends State<OtpForm> {
               child: const Text(
                 "Resend OTP",
                 style: TextStyle(
-                  color: Colors.blue,
+                  color: Colors.black,
                   fontSize: 16,
                   decoration: TextDecoration.underline,
                 ),

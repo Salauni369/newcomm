@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:newcomm/views/otp_view.dart';
+import 'package:newcomm/views/signup_screen.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -41,6 +43,7 @@ class _LoginState extends State<Login> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text("OTP Sent (Mock) to ${phoneController.text.trim()}")),
     );
+
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const OtpFormlogin()),
@@ -84,7 +87,7 @@ class _LoginState extends State<Login> {
             Container(
               padding: const EdgeInsets.only(left: 35, top: 130),
               child: const Text(
-                "Welcome\n Back ",
+                "Welcome\nBack ",
                 style: TextStyle(color: Colors.white, fontSize: 33),
               ),
             ),
@@ -114,7 +117,7 @@ class _LoginState extends State<Login> {
                           fillColor: Colors.grey.shade100,
                           filled: true,
                           hintText: "Mobile Number",
-                          prefixText: "+91 ", // optional: show country code
+                          prefixText: "+91 ",
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -140,7 +143,9 @@ class _LoginState extends State<Login> {
                             : const Text(
                           "Send Otp",
                           style: TextStyle(
-                              fontSize: 20, color: Colors.white),
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
@@ -157,7 +162,8 @@ class _LoginState extends State<Login> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/signup');
+
+                            Get.to(() => const SignupScreen());
                           },
                           child: const Text(
                             "Sign Up",
