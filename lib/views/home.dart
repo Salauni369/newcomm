@@ -517,6 +517,8 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                       ],
                                     ),
+
+                                    // Hello My Self Aman
                                     const SizedBox(height: 2),
                                     Text(delivery == 0 ? "Free delivery" : "Delivery ₹$delivery", style: const TextStyle(fontSize: 10)),
                                     const SizedBox(height: 4),
